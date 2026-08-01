@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Grammar tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The repository corpus is every .kofun source the language
+          # repository accepts, so it is pinned here rather than copied.
+          submodules: true
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - name: Report the pinned corpus revision
+        run: git -C vendor/kofun log -1 --format='vendor/kofun is at %h %s'
+      - name: Generate the parser and run the focused corpus
+        run: npm test
+      - name: Parse every Kofun source the language repository accepts
+        run: npm run test:repository-corpus
+      - name: Compile and exercise the editor queries
+        run: npm run test:queries
