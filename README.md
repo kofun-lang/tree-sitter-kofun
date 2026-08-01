@@ -10,11 +10,17 @@ trailing-operator continuation and the Stage 0 leading-`|>` continuation. The
 current repository extensions for imports, the native CLI profile, and the C
 ABI profile are represented by named syntax nodes.
 
+This repository holds the grammar and the editor queries only. The language
+itself lives in [hjosugi/kofun](https://github.com/hjosugi/kofun), which is
+pinned here as a submodule so the corpus test has a known revision of every
+source the language accepts to parse against.
+
 ## Development
 
 Node.js 20 or newer is required. The lockfile pins the Tree-sitter CLI.
 
 ```sh
+git submodule update --init vendor/kofun
 npm ci
 npm test
 npm run test:repository-corpus
@@ -23,8 +29,13 @@ npm run test:queries
 
 `npm test` regenerates the parser, runs the focused corpus, and
 checks that incomplete declarations, expressions, and delimiters retain useful
-named recovery structure. The repository-corpus test requires every `.kofun` file below
-`examples/` and `tests/kofun/` to parse without an error or missing node.
+named recovery structure. It needs nothing outside this repository.
+
+The repository-corpus test requires every `.kofun` file below `examples/` and
+`tests/kofun/` in the pinned checkout to parse without an error or missing
+node. Point `KOFUN_CHECKOUT` at a working tree of the language repository to
+run it against uncommitted grammar changes; without either, it says which is
+missing rather than reporting an empty corpus as a pass.
 
 ## Editor integration
 

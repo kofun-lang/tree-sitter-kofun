@@ -1,10 +1,28 @@
 import { spawnSync } from "node:child_process";
-import { readdirSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const packageDirectory = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const repositoryRoot = resolve(packageDirectory, "..", "..");
+
+// The corpus is every .kofun source the language repository accepts, so it
+// lives there rather than here. This grammar used to sit inside that
+// repository and reached it with "../..", which after the split resolves to
+// whatever directory the checkout happens to sit in. hjosugi/kofun is pinned
+// as a submodule instead, so the corpus is a known revision rather than
+// whatever is next to the clone.
+const repositoryRoot = process.env.KOFUN_CHECKOUT
+  ? resolve(process.env.KOFUN_CHECKOUT)
+  : join(packageDirectory, "vendor", "kofun");
+
+if (!existsSync(join(repositoryRoot, "examples"))) {
+  throw new Error(
+    `no Kofun corpus at ${repositoryRoot}\n`
+    + "  git submodule update --init vendor/kofun\n"
+    + "or point KOFUN_CHECKOUT at a checkout of hjosugi/kofun.",
+  );
+}
+
 const corpusRoots = [
   join(repositoryRoot, "examples"),
   join(repositoryRoot, "tests", "kofun"),
@@ -15,7 +33,7 @@ const files = corpusRoots
   .sort();
 
 if (files.length === 0) {
-  throw new Error("repository corpus is empty");
+  throw new Error(`repository corpus is empty under ${repositoryRoot}`);
 }
 
 const result = spawnSync(
