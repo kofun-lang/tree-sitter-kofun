@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(tree-sitter-kofun
         VERSION "0.1.0"
         DESCRIPTION "Tree-sitter grammar for the Kofun programming language"
-        HOMEPAGE_URL "https://github.com/hjosugi/kofun"
+        HOMEPAGE_URL "https://github.com/kofun-lang/kofun"
         LANGUAGES C)
 
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)

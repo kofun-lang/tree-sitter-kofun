@@ -1,5 +1,5 @@
 LANGUAGE_NAME := tree-sitter-kofun
-HOMEPAGE_URL := https://github.com/hjosugi/kofun
+HOMEPAGE_URL := https://github.com/kofun-lang/kofun
 VERSION := 0.1.0
 DESCRIPTION := Tree-sitter grammar for the Kofun programming language
 

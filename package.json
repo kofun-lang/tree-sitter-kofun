@@ -7,11 +7,11 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hjosugi/tree-sitter-kofun.git"
+    "url": "git+https://github.com/kofun-lang/tree-sitter-kofun.git"
   },
-  "homepage": "https://github.com/hjosugi/tree-sitter-kofun#readme",
+  "homepage": "https://github.com/kofun-lang/tree-sitter-kofun#readme",
   "bugs": {
-    "url": "https://github.com/hjosugi/tree-sitter-kofun/issues"
+    "url": "https://github.com/kofun-lang/tree-sitter-kofun/issues"
   },
   "keywords": [
     "incremental",

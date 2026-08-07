@@ -1,7 +1,7 @@
 # tree-sitter-kofun
 
 Incremental parser and editor queries for the
-[Kofun programming language](https://github.com/hjosugi/kofun).
+[Kofun programming language](https://github.com/kofun-lang/kofun).
 
 The grammar follows `spec/grammar.ebnf` and the accepted sources under
 `examples/` and `tests/kofun/`. It keeps newlines significant at statement
@@ -11,7 +11,7 @@ current repository extensions for imports, the native CLI profile, and the C
 ABI profile are represented by named syntax nodes.
 
 This repository holds the grammar and the editor queries only. The language
-itself lives in [hjosugi/kofun](https://github.com/hjosugi/kofun), which is
+itself lives in [hjosugi/kofun](https://github.com/kofun-lang/kofun), which is
 pinned here as a submodule so the corpus test has a known revision of every
 source the language accepts to parse against.
 
